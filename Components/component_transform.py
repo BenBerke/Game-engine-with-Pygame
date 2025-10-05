@@ -3,7 +3,7 @@ from Classes import Component
 from config import SCREEN_WIDTH_CENTER, SCREEN_HEIGHT_CENTER
 
 class Transform(Component):
-    def __init__(self, world_position=(0,0), scale=(100, 100), rotation=0):
+    def __init__(self, world_position=Vector2(0,0), scale=Vector2(100, 100), rotation=0):
         super().__init__()
         self.owner = None
         self.world_position = world_position
@@ -13,7 +13,6 @@ class Transform(Component):
         self.scale = Vector2(scale)
 
     def to_dict(self):
-        # Save world position only
         return {
             "world_position": [int(self.world_position.x), int(self.world_position.y)],
             "scale": [int(self.scale.x), int(self.scale.y)],

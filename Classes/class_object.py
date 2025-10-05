@@ -1,5 +1,3 @@
-from Classes import Scene
-
 class Object:
     id_counter = 0
 
@@ -9,10 +7,14 @@ class Object:
         self.name = name
         self.components = {}
 
-        # Add any extra components
         for comp in components:
             self.add_component(comp)
 
+        from Components import Transform
+        if not self.get_component(Transform):
+            self.add_component(Transform())
+
+        from Classes import Scene
         Scene.register_object(self)
 
     def add_component(self, component):
@@ -34,6 +36,7 @@ class Object:
             del self.components[key]
 
     def update(self):
+        from Components import SpriteRenderer, BoxCollider, Rigidbody
         for comp in self.components.values():
             if isinstance(comp, (SpriteRenderer, BoxCollider, Rigidbody)):
                 continue

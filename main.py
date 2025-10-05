@@ -1,28 +1,20 @@
 import pygame as py
-
 import config
-from Components import Rigidbody
-from Systems import system_time_manager
 
-from Classes.class_object import Object
-from Components.Test_Behaviours.test_behaviour import TestBehaviour
 from config import SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_WIDTH_CENTER, SCREEN_HEIGHT_CENTER
+from Components import Rigidbody, TestBehaviour, Transform
+from Classes import Scene, Object
+from Systems import PhysicsSystem, RenderingSystem, InputSystem, system_time_manager
 
-from Classes.class_scene_manager import Scene
-
-from Systems.system_input import InputSystem
-from Systems.system_rendering import RenderingSystem
-from Systems.system_physics import PhysicsSystem
+from Systems import system_scene_loader
 
 py.init()
 SCREEN = config.INIT_DISPLAY()
 clock = py.time.Clock()
 running = True
 
-myobj = Object(
-    name="my name",
-    components=[TestBehaviour(), Rigidbody()],
-)
+
+system_scene_loader.load_scene("Test_Scenes/kemal.json")
 
 while running:
     InputSystem.update()

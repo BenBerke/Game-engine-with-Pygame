@@ -1,8 +1,7 @@
 from pygame import Vector2
 from config import DEFUALT_GRAVITY, DEFAULT_MAX_VELOCITY_X, DEFAULT_MAX_VELOCITY_Y, DEFAULT_FRICTION
 from Classes import Component
-from Components import Transform
-from Systems import PhysicsSystem
+from Systems import PhysicsSystem, dt
 
 class Rigidbody(Component):
     velocity = Vector2(0,0)
@@ -20,13 +19,14 @@ class Rigidbody(Component):
         PhysicsSystem.register_rigidbody(self)
 
     def update(self):
+        from Components import Transform
         owner_transform = self.owner.get_component(Transform)
         if self.is_kinematic:
             return
-        self.velocity.y += self.gravity_scale * time_manager.dt
+        self.velocity.y += self.gravity_scale * dt
         self.velocity.x *= (1 - self.friction.x)
         self.velocity.x = max(min(self.velocity.x, self.max_velocity_x), -self.max_velocity_x)
-        owner_transform.world_position += self.velocity * time_manager.dt
+        owner_transform.world_position += self.velocity * dt
 
 
     def on_remove(self):
