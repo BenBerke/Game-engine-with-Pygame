@@ -21,7 +21,8 @@ class Scene:
                 "components": {}
             }
             for comp_name, comp in obj.components.items():
-                obj_dict["components"][comp_name] = comp.to_dict()
+                if hasattr(comp, "to_dict"):
+                    obj_dict["components"][comp_name] = comp.to_dict()
             scene_dict[obj.id] = obj_dict
 
         with open(f"Scenes/{filename}.json", "w") as f:

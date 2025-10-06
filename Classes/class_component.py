@@ -2,7 +2,8 @@ from pygame import Vector2
 
 class Component:
     def __init__(self):
-        self.owner = None  # skip this in serialization
+        self.appear_in_debug = True
+        self.owner = None
 
     def to_dict(self):
         result = {}
@@ -12,7 +13,6 @@ class Component:
             if isinstance(value, Vector2):
                 result[key] = [value.x, value.y]
             elif isinstance(value, Component):
-                # nested component, serialize recursively
                 result[key] = value.to_dict()
             elif hasattr(value, "to_dict"):
                 result[key] = value.to_dict()

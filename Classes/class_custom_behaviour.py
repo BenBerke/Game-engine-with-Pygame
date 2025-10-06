@@ -1,7 +1,7 @@
 from Classes import Component
 from Components import *
 
-class Behaviour(Component):
+class CustomBehaviour(Component):
     def __init__(self):
         super().__init__()
         self.owner = None

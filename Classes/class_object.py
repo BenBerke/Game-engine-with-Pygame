@@ -25,15 +25,16 @@ class Object:
         from Classes import Scene
         Scene.register_object(obj)
 
-        return obj
+        for comp in obj.components.values():
+            if hasattr(comp, "start"):
+                comp.start()
 
+        return obj
 
     def add_component(self, component):
         component_type = type(component).__name__
         self.components[component_type] = component
         component.owner = self
-        if hasattr(component, "start"):
-            component.start()
 
     def get_component(self, component_type):
         return self.components.get(component_type.__name__, None)
