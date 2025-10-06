@@ -1,4 +1,5 @@
 import pygame as py
+from pygame import Vector2
 from config import INIT_DISPLAY, SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_WIDTH_CENTER, SCREEN_HEIGHT_CENTER
 from Classes import Scene
 

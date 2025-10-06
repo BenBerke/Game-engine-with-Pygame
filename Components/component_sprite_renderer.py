@@ -14,7 +14,6 @@ class SpriteRenderer(Component):
         self.render_order = render_order
         self.is_world_pos = is_world_pos
 
-        # Handle sprite: either a Sprite instance, or a dict loaded from JSON
         if isinstance(sprite, Sprite):
             self.sprite = sprite
             sprite_data = sprite.to_dict()

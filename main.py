@@ -16,7 +16,7 @@ running = True
 
 my_camera = Object.create(
     name="my_camera",
-    components=[Camera(), Debugger(), Transform(), TestBehaviour()],
+    components=[Camera(), Debugger(), Transform(), , TestBehaviour()],
 )
 
 my_obj = Object.create(
@@ -26,7 +26,7 @@ my_obj = Object.create(
 
 floor = Object.create(
     name="floor",
-    components=[SpriteRenderer(), BoxCollider(), Transform(world_position=Vector2(0, 300), scale=Vector2(300, 10)), Debugger()],
+    components=[SpriteRenderer(), BoxCollider(), Transform(world_position=Vector2(0, -300), scale=Vector2(300, 10)), Debugger()],
 )
 
 debug_console = DebugConsole(max_lines=15)
@@ -34,7 +34,6 @@ debug_console = DebugConsole(max_lines=15)
 frame=0
 
 while running:
-    print(id(my_camera.get_component(Transform)), id(floor.get_component(Transform)), id(my_obj.get_component(Transform)))
     frame += 1
     InputSystem.update()
 
