@@ -40,20 +40,21 @@ class SpriteRenderer(Component):
                 data["sprite"] = None
         return data
 
-    def render(self, screen=SCREEN, position=Vector2(0,0), scale=1):
-        self.screen = screen
-        owner_transform = self.owner.get_component(Transform)
-        scale = owner_transform.scale
-        rot = owner_transform.rotation
+    def render(self, screen=SCREEN, position=None, scale=None):
+        # Use provided position & scale from RenderingSystem
+        pos = position if position else self.owner.get_component(Transform).screen_position
+        scale = scale if scale else self.owner.get_component(Transform).scale
 
+        # Prepare image
         if self.sprite and hasattr(self.sprite, "image"):
-            image = py.transform.scale(self.sprite.image, (scale.x * scale, scale.y * scale))
-            image = py.transform.rotate(image, -rot)
+            image = py.transform.scale(self.sprite.image, (int(scale.x), int(scale.y)))
         else:
-            image = py.Surface((scale.x, scale.y), py.SRCALPHA)
+            # Fallback: colored rectangle
+            image = py.Surface((int(scale.x), int(scale.y)), py.SRCALPHA)
             image.fill(self.color)
 
-        rect = image.get_rect(center=position)
+        # Center the image at pos
+        rect = image.get_rect(center=(int(pos.x), int(pos.y)))
         screen.blit(image, rect)
 
     def change_sprite(self, sprite=None):

@@ -16,12 +16,13 @@ running = True
 
 my_camera = Object.create(
     name="my_camera",
-    components=[Camera(), Transform()],
+    components=[Camera(zoom=1), Transform(), Debugger()],
+
 )
 
 my_obj = Object.create(
     name="my_obj",
-    components=[SpriteRenderer(), BoxCollider(), Debugger(), TestBehaviour()],
+    components=[SpriteRenderer(), BoxCollider(), Debugger(), TestBehaviour(), Rigidbody()],
 )
 
 floor = Object.create(
@@ -31,7 +32,12 @@ floor = Object.create(
 
 test_text = Object.create(
     name="test_text",
-    components=[(TextRenderer(position=Vector2(0, 1500), is_world_pos=True)), Transform(world_position=Vector2(150, 150))]
+    components=[(TextRenderer(position=Vector2(0, 1500), is_world_pos=True, text="world pos")), Transform(world_position=Vector2(150, 150))]
+)
+
+test_text1 = Object.create(
+    name="test_text",
+    components=[(TextRenderer(position=Vector2(50, 150), is_world_pos=False, text="screen pos"))]
 )
 
 debug_console = DebugConsole(max_lines=15)
