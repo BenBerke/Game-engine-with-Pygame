@@ -8,18 +8,21 @@ from Components import *
 class TestBehaviour(CustomBehaviour):
     def __init__(self):
         super().__init__()
-        self.move_speed = 30
-        self.jump_power = 100
+        self.move_speed = .1
+        self.jump_power = 2
 
     def update(self):
         transform = self.owner.get_component(Transform)
         camera_transform = Scene.main_camera.owner.get_component(Transform)
+
+        if InputSystem.was_key_pressed(py.K_j):
+            transform.translate(Vector2(1, 0))
         if InputSystem.is_key_pressed(py.K_a):
             transform.translate(Vector2(-self.move_speed, 0))
         if InputSystem.is_key_pressed(py.K_d):
             transform.translate(Vector2(self.move_speed, 0))
         if InputSystem.is_key_pressed(py.K_w):
-            self.owner.get_component(Rigidbody).add_force(Vector2(0, self.jump_power))
+            transform.translate(Vector2(0, self.move_speed))
         if InputSystem.is_key_pressed(py.K_s):
             transform.translate(Vector2(0, -self.move_speed))
 

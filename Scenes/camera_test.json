@@ -1,0 +1,25 @@
+{
+    "0": {
+        "name": "my_camera",
+        "components": {
+            "Transform": {
+                "world_position": [
+                    0,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1
+                ],
+                "rotation": 0
+            },
+            "Camera": {
+                "viewport_dimensions": [
+                    50.0,
+                    50.0
+                ],
+                "zoom": 1
+            },
+            "Debugger": {
+                "appear_in_debug": false,
+                "screen": 

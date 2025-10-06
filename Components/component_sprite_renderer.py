@@ -20,8 +20,8 @@ class SpriteRenderer(Component):
         elif isinstance(sprite, dict):
             self.sprite = Sprite(
                 sprite_path=sprite.get("sprite_path"),
-                width=sprite.get("width", 500),
-                height=sprite.get("height", 500)
+                width=sprite.get("width", 5),
+                height=sprite.get("height", 5)
             )
             sprite_data = sprite
         else:

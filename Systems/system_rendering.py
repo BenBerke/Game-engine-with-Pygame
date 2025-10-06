@@ -1,6 +1,6 @@
 import pygame as py
 from pygame import Vector2
-from config import INIT_DISPLAY, SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_WIDTH_CENTER, SCREEN_HEIGHT_CENTER
+from config import INIT_DISPLAY, SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_WIDTH_CENTER, SCREEN_HEIGHT_CENTER, PIXELS_PER_UNIT
 from Classes import Scene
 
 
@@ -49,7 +49,7 @@ class RenderingSystem:
             if renderer.is_world_pos:
                 transform = renderer.owner.get_component(Transform)
                 screen_pos = cam.world_to_screen(transform.world_position)
-                screen_scale = transform.scale * cam.zoom
+                screen_scale = transform.scale * cam.zoom * PIXELS_PER_UNIT
                 renderer.render(screen=SCREEN, position=screen_pos, scale=screen_scale)
             else:
                 renderer.render(screen=SCREEN)

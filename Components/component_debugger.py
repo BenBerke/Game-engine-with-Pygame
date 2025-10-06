@@ -30,6 +30,9 @@ class Debugger(Component):
         engine_debug = ""
         behaviour_debug = ""
 
+        engine_debug += f"ID: {self.owner.id}\n"
+        engine_debug += f"Name:: {self.owner.name}\n"
+
         # Build the debug string
         for comp_name, comp in self.owner.components.items():
             if not getattr(comp, "appear_in_debug", True):
@@ -68,5 +71,5 @@ class Debugger(Component):
                 )
 
             # Offset the text to appear above and to the right of the object
-            offset = Vector2(owner_transform.scale.x / 2, owner_transform.scale.y * -3)
+            offset = Vector2(owner_transform.scale.x * 40, owner_transform.scale.y * -20)
             self.text_renderer.position = screen_pos + offset

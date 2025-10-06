@@ -7,7 +7,7 @@ class Transform(Component):
         super().__init__()
         self.owner = None
         self.world_position = Vector2(world_position.x, world_position.y) if world_position else Vector2(0, 0)
-        self.scale = Vector2(scale) if scale else Vector2(100, 100)
+        self.scale = Vector2(scale) if scale else Vector2(1, 1)
         self.rotation = rotation
         self.screen_position = Vector2(
             SCREEN_WIDTH_CENTER + self.world_position.x,

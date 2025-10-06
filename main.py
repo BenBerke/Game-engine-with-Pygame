@@ -22,25 +22,27 @@ my_camera = Object.create(
 
 my_obj = Object.create(
     name="my_obj",
-    components=[SpriteRenderer(), BoxCollider(), Debugger(), TestBehaviour(), Rigidbody()],
+    components=[SpriteRenderer(), BoxCollider(), Debugger(), TestBehaviour()],
 )
 
 floor = Object.create(
     name="floor",
-    components=[SpriteRenderer(), BoxCollider(), Transform(world_position=Vector2(0, -300), scale=Vector2(300, 10)), Debugger()],
+    components=[SpriteRenderer(), BoxCollider(), Transform(world_position=Vector2(0, -5), scale=Vector2(3, .1)), Debugger()],
 )
 
 test_text = Object.create(
     name="test_text",
-    components=[(TextRenderer(position=Vector2(0, 1500), is_world_pos=True, text="world pos")), Transform(world_position=Vector2(150, 150))]
+    components=[(TextRenderer(position=Vector2(0, 15), is_world_pos=True, text="world pos")), Transform(world_position=Vector2(150, 150))]
 )
 
 test_text1 = Object.create(
     name="test_text",
-    components=[(TextRenderer(position=Vector2(50, 150), is_world_pos=False, text="screen pos"))]
+    components=[(TextRenderer(position=Vector2(5, 15), is_world_pos=False, text="screen pos"))]
 )
 
 debug_console = DebugConsole(max_lines=15)
+
+#Scene.save_scene("camera_test")
 
 frame=0
 
