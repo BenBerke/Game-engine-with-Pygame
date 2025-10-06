@@ -12,6 +12,9 @@ class Transform(Component):
         self.rotation = rotation
         self.scale = Vector2(scale)
 
+    def update(self):
+        self.screen_position = Vector2(SCREEN_WIDTH_CENTER + self.world_position.x, SCREEN_HEIGHT_CENTER - self.world_position.y)
+
     def to_dict(self):
         return {
             "world_position": [int(self.world_position.x), int(self.world_position.y)],

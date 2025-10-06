@@ -3,7 +3,7 @@ from pygame.math import Vector2
 from Classes import Object
 from Classes import Scene
 
-def load_scene(filename):
+def load_scene(file_name):
     from Components import Transform, BoxCollider, SpriteRenderer, Rigidbody
     component_map = {
         "Transform": Transform,
@@ -11,6 +11,7 @@ def load_scene(filename):
         "SpriteRenderer": SpriteRenderer,
         "Rigidbody": Rigidbody
     }
+    filename = f"Scenes/{file_name}.json"
     with open(filename, "r") as f:
         data = json.load(f)
 

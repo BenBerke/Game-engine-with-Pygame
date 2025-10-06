@@ -21,7 +21,7 @@
                 ],
                 "render_order": 0,
                 "sprite": {
-                    "sprite_path": "efe",
+                    "sprite_path": "Sprites/efe.png",
                     "width": 500,
                     "height": 500
                 }

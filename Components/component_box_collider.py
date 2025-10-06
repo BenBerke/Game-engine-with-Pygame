@@ -3,7 +3,6 @@ from pygame import Vector2
 from config import INIT_DISPLAY
 SCREEN = INIT_DISPLAY()
 
-
 from Systems.system_physics import PhysicsSystem
 from Components.component_transform import Transform
 from Classes.class_component import Component

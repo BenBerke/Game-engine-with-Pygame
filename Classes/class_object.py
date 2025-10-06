@@ -1,21 +1,32 @@
 class Object:
     id_counter = 0
 
-    def __init__(self, name="GameObject", components=()):
+    def __init__(self, name, components):
         self.id = Object.id_counter
         Object.id_counter += 1
         self.name = name
         self.components = {}
 
-        for comp in components:
-            self.add_component(comp)
+    @classmethod
+    def create(cls, name="GameObject", components=()):
+        obj = cls(name, components)
 
         from Components import Transform
-        if not self.get_component(Transform):
-            self.add_component(Transform())
+        transform = next((c for c in components if isinstance(c, Transform)), None)
+        if transform is None:
+            transform = Transform()
+        obj.add_component(transform)
+
+        for comp in components:
+            if isinstance(comp, Transform):
+                continue
+            obj.add_component(comp)
 
         from Classes import Scene
-        Scene.register_object(self)
+        Scene.register_object(obj)
+
+        return obj
+
 
     def add_component(self, component):
         component_type = type(component).__name__
@@ -44,4 +55,5 @@ class Object:
                 comp.update()
 
     def remove(self):
+        from Classes import Scene
         Scene.remove_object(self)

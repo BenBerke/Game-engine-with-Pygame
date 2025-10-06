@@ -21,7 +21,7 @@
                 ],
                 "render_order": 0,
                 "sprite": {
-                    "sprite_path": "kemal",
+                    "sprite_path": "Sprites/kemal.png",
                     "width": 500,
                     "height": 500
                 }

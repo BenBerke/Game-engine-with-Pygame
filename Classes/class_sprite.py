@@ -5,10 +5,9 @@ class Sprite:
         self.width = width
         self.height = height
         self.owner = None
+        self.sprite_path = sprite_path
 
         if sprite_path:
-            self.file_name = sprite_path
-            self.sprite_path = f"Sprites/{sprite_path}.png"
             self.image = py.image.load(self.sprite_path).convert_alpha()
             self.image = py.transform.scale(self.image, (width, height))
         else:
@@ -16,7 +15,7 @@ class Sprite:
 
     def to_dict(self):
         return {
-            "sprite_path": self.file_name,
+            "sprite_path": self.sprite_path,
             "width": self.width,
             "height": self.height
         }

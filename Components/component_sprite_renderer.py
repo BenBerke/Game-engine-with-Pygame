@@ -26,7 +26,7 @@ class SpriteRenderer(Component):
             self.sprite = None
             sprite_data = None
 
-        RenderingSystem.register(self)
+        RenderingSystem.register_sprite(self)
 
     def to_dict(self):
         data = super().to_dict()  # get all normal attributes
@@ -64,3 +64,6 @@ class SpriteRenderer(Component):
             )
         else:
             self.sprite = sprite
+
+    def on_remove(self):
+        RenderingSystem.unregister_sprite(self)

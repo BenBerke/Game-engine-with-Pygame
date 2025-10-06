@@ -1,4 +1,3 @@
-
 class PhysicsSystem:
     rigidbodies = []
     colliders = []
@@ -23,7 +22,8 @@ class PhysicsSystem:
 
     @classmethod
     def update(cls):
-        # Collision checks
+        for rb in cls.rigidbodies:
+            rb.update()
         for i in range(len(cls.colliders)):
             a = cls.colliders[i]
             if not a:
@@ -32,10 +32,7 @@ class PhysicsSystem:
                 b = cls.colliders[j]
                 if not b:
                     continue
-                PhysicsSystem.check_collision(a, b)
-
-        for rb in cls.rigidbodies:
-            rb.update()
+                cls.check_collision(a, b)
 
 
 
@@ -67,15 +64,11 @@ class PhysicsSystem:
                 if rb_a and ((dx > 0 and rb_a.velocity.x < 0) or (dx < 0 and rb_a.velocity.x > 0)):
                     rb_a.velocity.x = 0
             else:
-                # Resolve Y
-                if dy > 0:
-                    collision_a.owner.get_component(Transform).world_position.y += overlap_y
-                    # stop upward movement only
-                    if rb_a and rb_a.velocity.y < 0:
-                        rb_a.velocity.y = 0
-                else:
-                    collision_a.owner.get_component(Transform).world_position.y -= overlap_y
-                    # stop downward movement only
-                    if rb_a and rb_a.velocity.y > 0:
+                if overlap_y > 0:
+                    if dy > 0:
+                        collision_a.owner.get_component(Transform).world_position.y += overlap_y
+                    else:
+                        collision_a.owner.get_component(Transform).world_position.y -= overlap_y
+                    if rb_a:
                         rb_a.velocity.y = 0
 
