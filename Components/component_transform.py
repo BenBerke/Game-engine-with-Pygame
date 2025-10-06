@@ -3,14 +3,16 @@ from Classes import Component
 from config import SCREEN_WIDTH_CENTER, SCREEN_HEIGHT_CENTER
 
 class Transform(Component):
-    def __init__(self, world_position=Vector2(0,0), scale=Vector2(100, 100), rotation=0):
+    def __init__(self, world_position=None, scale=None, rotation=0):
         super().__init__()
         self.owner = None
-        self.world_position = world_position
-        self.screen_position = Vector2(SCREEN_WIDTH_CENTER + self.world_position.x, SCREEN_HEIGHT_CENTER - self.world_position.y)
-
+        self.world_position = Vector2(world_position) if world_position else Vector2(0, 0)
+        self.scale = Vector2(scale) if scale else Vector2(100, 100)
         self.rotation = rotation
-        self.scale = Vector2(scale)
+        self.screen_position = Vector2(
+            SCREEN_WIDTH_CENTER + self.world_position.x,
+            SCREEN_HEIGHT_CENTER - self.world_position.y
+        )
 
     def update(self):
         self.screen_position = Vector2(SCREEN_WIDTH_CENTER + self.world_position.x, SCREEN_HEIGHT_CENTER - self.world_position.y)

@@ -7,6 +7,7 @@ from .component_box_collider import BoxCollider
 from .component_sprite_renderer import SpriteRenderer
 from .component_text_renderer import TextRenderer
 from .component_debugger import Debugger
+from .component_camera import Camera
 
 
 # Test_Behaviours subpackage
@@ -20,5 +21,6 @@ ALL_COMPONENTS = {
     "SpriteRenderer": SpriteRenderer,
     "TextRenderer": TextRenderer,
     "Debugger": Debugger,
+    "Camera": Camera,
 }
 

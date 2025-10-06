@@ -1,5 +1,8 @@
 import pygame as py
 from config import INIT_DISPLAY, SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_WIDTH_CENTER, SCREEN_HEIGHT_CENTER
+from Classes import Scene
+
+
 SCREEN = INIT_DISPLAY()
 
 class RenderingSystem:
@@ -35,8 +38,16 @@ class RenderingSystem:
         py.draw.line(SCREEN, (0, 0, 0), (SCREEN_WIDTH_CENTER, 0), (SCREEN_WIDTH_CENTER, SCREEN_HEIGHT))
         py.draw.line(SCREEN, (0, 0, 0), (0, SCREEN_HEIGHT_CENTER), (SCREEN_WIDTH, SCREEN_HEIGHT_CENTER))
 
+        from Components import Transform
         for renderer in sorted(cls.sprites, key=lambda r: r.render_order):
-            renderer.render(SCREEN)
+            if renderer.is_world_pos:
+                world_pos = renderer.owner.get_component(Transform).world_position
+                screen_pos = Scene.main_camera.world_to_screen(world_pos)
+                screen_size = renderer.owner.get_component(Transform).scale * Scene.main_camera.zoom
+                renderer.render(screen=SCREEN, position=screen_pos, scale=screen_size)
+            else:
+                renderer.render(screen=SCREEN)
+
         for text in sorted(cls.text, key=lambda r: r.render_order):
             text.render(SCREEN)
 

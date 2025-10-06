@@ -29,7 +29,7 @@ class Rigidbody(Component):
         owner_transform = self.owner.get_component(Transform)
         if self.is_kinematic:
             return
-        self.velocity.y += self.gravity_scale * Systems.system_time_manager.dt
+        self.velocity.y += -self.gravity_scale * Systems.system_time_manager.dt
         self.velocity.x *= (1 - self.friction.x)
         self.velocity.x = max(min(self.velocity.x, self.max_velocity_x), -self.max_velocity_x)
         owner_transform.world_position += Vector2(self.velocity.x, -self.velocity.y) * Systems.system_time_manager.dt

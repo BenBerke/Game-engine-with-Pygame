@@ -3,7 +3,7 @@ from pygame import Vector2
 import config
 
 from config import SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_WIDTH_CENTER, SCREEN_HEIGHT_CENTER
-from Components import SpriteRenderer, Rigidbody, Transform, BoxCollider, Debugger, TextRenderer
+from Components import SpriteRenderer, Rigidbody, Transform, BoxCollider, Debugger, TextRenderer, Camera
 from Components import TestBehaviour
 from Classes import Scene, Object, Sprite, DebugConsole
 from Systems import PhysicsSystem, RenderingSystem, InputSystem, system_time_manager, system_scene_loader
@@ -14,9 +14,19 @@ clock = py.time.Clock()
 running = True
 
 
+my_camera = Object.create(
+    name="my_camera",
+    components=[Camera(), Debugger(), Transform(), TestBehaviour()],
+)
+
 my_obj = Object.create(
     name="my_obj",
-    components=[SpriteRenderer(), TestBehaviour(), Debugger()],
+    components=[SpriteRenderer(), BoxCollider(), Rigidbody()],
+)
+
+floor = Object.create(
+    name="floor",
+    components=[SpriteRenderer(), BoxCollider(), Transform(world_position=Vector2(0, 300), scale=Vector2(300, 10)), Debugger()],
 )
 
 debug_console = DebugConsole(max_lines=15)
@@ -24,6 +34,7 @@ debug_console = DebugConsole(max_lines=15)
 frame=0
 
 while running:
+    print(id(my_camera.get_component(Transform)), id(floor.get_component(Transform)), id(my_obj.get_component(Transform)))
     frame += 1
     InputSystem.update()
 

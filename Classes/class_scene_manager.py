@@ -3,6 +3,8 @@ import json
 class Scene:
     objects = []
 
+    main_camera = None
+
     @classmethod
     def register_object(cls, obj):
         cls.objects.append(obj)
