@@ -36,21 +36,31 @@ class RenderingSystem:
     @classmethod
     def update(cls):
         SCREEN.fill((255, 255, 255))
+
+        # Draw axes (optional)
         py.draw.line(SCREEN, (0, 0, 0), (SCREEN_WIDTH_CENTER, 0), (SCREEN_WIDTH_CENTER, SCREEN_HEIGHT))
         py.draw.line(SCREEN, (0, 0, 0), (0, SCREEN_HEIGHT_CENTER), (SCREEN_WIDTH, SCREEN_HEIGHT_CENTER))
 
         from Components import Transform
+        cam = Scene.main_camera
+
         for renderer in sorted(cls.sprites, key=lambda r: r.render_order):
             if renderer.is_world_pos:
                 world_pos = renderer.owner.get_component(Transform).world_position
-                screen_pos = Scene.main_camera.world_to_screen(world_pos)
-                screen_size = renderer.owner.get_component(Transform).scale * Scene.main_camera.zoom
-                renderer.render(screen=SCREEN, position=screen_pos, scale=screen_size)
+                screen_pos = cam.world_to_screen(world_pos)
+                screen_scale = renderer.owner.get_component(Transform).scale * cam.zoom
+                renderer.render(screen=SCREEN, position=screen_pos, scale=screen_scale)
             else:
                 renderer.render(screen=SCREEN)
 
         for text in sorted(cls.text, key=lambda r: r.render_order):
-            text.render(SCREEN)
+            if text.is_world_pos:
+                owner_transform = text.owner.get_component(Transform)
+                if owner_transform:
+                    screen_pos = Scene.main_camera.world_to_screen(owner_transform.world_position)
+                    text.render(screen=SCREEN, position=screen_pos)
+            else:
+                text.render(screen=SCREEN)
 
         if cls.debug_console:
             cls.debug_console.render(SCREEN)

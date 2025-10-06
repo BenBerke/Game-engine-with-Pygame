@@ -20,11 +20,17 @@ class TextRenderer(Component):
 
         RenderingSystem.register_text(self)
 
-    def render(self, screen=SCREEN):
+    def render(self, screen=SCREEN, position=None):
+        # Use provided position if given, otherwise fallback
+        pos = position if position is not None else self.position
+
         lines = self.text.split("\n")
         for i, line in enumerate(lines):
             text_surface = self.font.render(line, self.anti_aliasing, self.color)
-            screen.blit(text_surface, (self.position.x, self.position.y + i * (self.font.get_height() + 2)))
+            screen.blit(
+                text_surface,
+                (pos.x, pos.y + i * (self.font.get_height() + 2))
+            )
 
     def on_remove(self):
         RenderingSystem.unregister_text(self)
