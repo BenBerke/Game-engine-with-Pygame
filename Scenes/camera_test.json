@@ -20,6 +20,64 @@
                 ],
                 "zoom": 1
             },
-            "Debugger": {
-                "appear_in_debug": false,
-                "screen": 
+            "TextRenderer": {
+                "text": "text",
+                "size": 50,
+                "color": [
+                    0,
+                    0,
+                    0
+                ],
+                "position": [
+                    150.0,
+                    150.0
+                ],
+                "render_order": 0,
+                "is_world_pos": false,
+                "anti_aliasing": true
+            }
+        }
+    },
+    "2": {
+        "name": "my_obj",
+        "components": {
+            "Transform": {
+                "world_position": [
+                    0,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1
+                ],
+                "rotation": 0
+            },
+            "SpriteRenderer": {
+                "appear_in_debug": true,
+                "color": [
+                    0,
+                    0,
+                    0
+                ],
+                "render_order": 0,
+                "is_world_pos": true,
+                "sprite": null
+            },
+            "BoxCollider": {
+                "appear_in_debug": true,
+                "width": 1.0,
+                "draw_gizmo": false,
+                "height": 1.0,
+                "offset": [
+                    0.0,
+                    0.0
+                ]
+            },
+            "TestBehaviour": {
+                "appear_in_debug": true,
+                "move_speed": 0.1,
+                "jump_power": 2
+            }
+        }
+    }
+}

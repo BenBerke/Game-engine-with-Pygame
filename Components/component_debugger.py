@@ -1,11 +1,11 @@
-# File: Components/component_debugger.py
 from pygame import Vector2
 from config import SCREEN
-from Classes import Component, Object, CustomBehaviour
+from Classes import Component, Object
 from Components import TextRenderer, Transform
 from Classes import Scene
 
 class Debugger(Component):
+    ignore_in_save = True
     def __init__(self, screen=SCREEN, size=18):
         super().__init__()
         self.screen = screen
@@ -16,11 +16,13 @@ class Debugger(Component):
         self.appear_in_debug = False
 
     def start(self):
-        # Create a dedicated TextRenderer object for this debugger
+        # Create a runtime-only TextRenderer object for debug display
         self.debug_text_object = Object.create(
             name=f"{self.owner.name}_debug_text",
-            components=[TextRenderer(text="", size=self.size, color=(0,0,0), is_world_pos=False)]
+            components=[TextRenderer(text="", size=self.size, color=(0, 0, 0), is_world_pos=False)]
         )
+        # Mark it so scene saving can ignore it
+        self.debug_text_object.ignore_in_save = True
         self.text_renderer = self.debug_text_object.get_component(TextRenderer)
 
     def update(self):
@@ -31,7 +33,7 @@ class Debugger(Component):
         behaviour_debug = ""
 
         engine_debug += f"ID: {self.owner.id}\n"
-        engine_debug += f"Name:: {self.owner.name}\n"
+        engine_debug += f"Name: {self.owner.name}\n"
 
         # Build the debug string
         for comp_name, comp in self.owner.components.items():
@@ -45,6 +47,7 @@ class Debugger(Component):
                 block += f"    {attr_name}: {value}\n"
 
             # Behaviours go at the bottom
+            from Classes import CustomBehaviour
             if issubclass(type(comp), CustomBehaviour):
                 behaviour_debug += block
             else:

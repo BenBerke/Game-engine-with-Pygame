@@ -31,13 +31,17 @@ class SpriteRenderer(Component):
         RenderingSystem.register_sprite(self)
 
     def to_dict(self):
-        data = super().to_dict()  # get all normal attributes
+        data = super().to_dict()  # Include normal attributes
         if self.sprite:
-            # Convert Sprite instance to a dictionary for JSON
-            if hasattr(self.sprite, "to_dict"):
-                data["sprite"] = self.sprite.to_dict()
-            else:
-                data["sprite"] = None
+            # Store only serializable info, not the Surface
+            data["sprite"] = {
+                "sprite_path": getattr(self.sprite, "sprite_path", None),
+                "width": getattr(self.sprite, "width", None),
+                "height": getattr(self.sprite, "height", None)
+            }
+        else:
+            data["sprite"] = None
+
         return data
 
     def render(self, screen=SCREEN, position=None, scale=None):

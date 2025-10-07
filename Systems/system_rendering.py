@@ -35,13 +35,21 @@ class RenderingSystem:
 
     @classmethod
     def update(cls):
+        cam = Scene.main_camera
+        if cam is None:
+            py.font.init()
+            font = py.font.Font(None, 64)
+            text_surface = font.render("NO CAMERA DETECTED", True, (255, 255, 255))
+            text_rect = text_surface.get_rect(center=(SCREEN_WIDTH_CENTER, SCREEN_HEIGHT_CENTER))
+            SCREEN.blit(text_surface, text_rect)
+
+            py.display.flip()
+            return
+
         SCREEN.fill((255, 255, 255))
 
-        # Draw axes (optional)
         py.draw.line(SCREEN, (0, 0, 0), (SCREEN_WIDTH_CENTER, 0), (SCREEN_WIDTH_CENTER, SCREEN_HEIGHT))
         py.draw.line(SCREEN, (0, 0, 0), (0, SCREEN_HEIGHT_CENTER), (SCREEN_WIDTH, SCREEN_HEIGHT_CENTER))
-
-        cam = Scene.main_camera
 
         # Render sprites
         from Components import Transform

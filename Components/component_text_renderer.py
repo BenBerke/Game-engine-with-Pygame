@@ -20,9 +20,20 @@ class TextRenderer(Component):
 
         RenderingSystem.register_text(self)
 
+    def to_dict(self):
+        return {
+            "text": self.text,
+            "size": self.size,
+            "color": list(self.color),
+            "position": [self.position.x, self.position.y],
+            "render_order": self.render_order,
+            "is_world_pos": self.is_world_pos,
+            "anti_aliasing": self.anti_aliasing
+        }
+
     def render(self, screen=SCREEN, position=None):
-        # Use provided position if given, otherwise fallback
-        pos = position if position is not None else self.position
+        # Use provided position if given, otherwise use self.position
+        pos = position if position else self.position
 
         lines = self.text.split("\n")
         for i, line in enumerate(lines):
