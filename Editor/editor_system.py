@@ -28,20 +28,22 @@ class EditorSystem:
             texts=RenderingSystem.text
         )
 
-        # for obj in Scene.objects:
-        #     if obj.get_component(SpriteRenderer):
-        #         transform = obj.get_component(Transform)
-        #         screen_pos = transform.screen_position
-        #         mouse_pos = InputSystem.get_mouse_pos()
-        #         width = transform.scale.x * PIXELS_PER_UNIT
-        #         heigth = transform.scale.y * PIXELS_PER_UNIT
-        #         left_x = screen_pos.x - (width / 2)
-        #         right_x = screen_pos.x + (width / 2)
-        #         top_y = screen_pos.y - (heigth / 2)
-        #         bottom_y = screen_pos.y + (heigth / 2)
-        #         if mouse_pos[0] > left_x and mouse_pos[0] < right_x and mouse_pos[1] > top_y and mouse_pos[1] < bottom_y:
-        #             if InputSystem.was_mouse_pressed(1):
-        #                 self.on_click(obj)
+        for obj in Scene.objects:
+            if obj.get_component(SpriteRenderer):
+                transform = obj.get_component(Transform)
+                screen_pos = transform.screen_position
+                mouse_pos = InputSystem.get_mouse_pos()
+                width = transform.scale.x * PIXELS_PER_UNIT
+                heigth = transform.scale.y * PIXELS_PER_UNIT
+                left_x = screen_pos.x - (width / 2)
+                right_x = screen_pos.x + (width / 2)
+                top_y = screen_pos.y - (heigth / 2)
+                bottom_y = screen_pos.y + (heigth / 2)
+                if mouse_pos[0] > left_x and mouse_pos[0] < right_x and mouse_pos[1] > top_y and mouse_pos[1] < bottom_y:
+                    self.on_hover(obj)
+                    if InputSystem.was_mouse_pressed(1):
+                        self.on_click(obj)
+                        break
 
     @classmethod
     def switch_to_editor_mode(cls):

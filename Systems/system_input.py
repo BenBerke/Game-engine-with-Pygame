@@ -48,7 +48,7 @@ class InputSystem:
     # -------- Mouse --------
     @classmethod
     def get_mouse_pos(cls):
-        return cls._mouse_pos
+        return py.mouse.get_pos()
 
     @classmethod
     def is_mouse_pressed(cls, button=1):

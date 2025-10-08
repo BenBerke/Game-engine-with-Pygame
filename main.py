@@ -39,15 +39,6 @@ while running:
     events = py.event.get()
     InputSystem.update(events)
 
-    if InputSystem.was_key_pressed(py.K_SPACE):
-        print("Space pressed this frame!")
-
-    if InputSystem.is_key_pressed(py.K_a):
-        print("Holding A")
-
-    if InputSystem.was_mouse_pressed(1):  # Left click
-        print("Left mouse clicked this frame!")
-
     for event in InputSystem.get_events():
         if event.type == py.QUIT:
             running = False
