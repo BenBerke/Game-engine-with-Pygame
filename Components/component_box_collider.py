@@ -10,10 +10,9 @@ from Classes.class_component import Component
 
 
 class BoxCollider(Component):
-    def __init__(self, width=None, height=None, offset=Vector2(0,0), draw_gizmo=False):
+    def __init__(self, width=None, height=None, offset=Vector2(0,0)):
         super().__init__()
         self.width = width
-        self.draw_gizmo = draw_gizmo
         self.height = height
         self.offset = offset
         PhysicsSystem.register_collider(self)
@@ -26,10 +25,6 @@ class BoxCollider(Component):
             self.width = transform.scale.x
         if not self.height:
             self.height = transform.scale.y
-
-    def update(self):
-        pass
-
 
     def on_remove(self):
         PhysicsSystem.unregister_collider(self)

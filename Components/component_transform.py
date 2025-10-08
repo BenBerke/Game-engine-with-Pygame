@@ -15,12 +15,15 @@ class Transform(Component):
             SCREEN_HEIGHT_CENTER - self.position.y * PIXELS_PER_UNIT
         )
 
+    def start(self):
+        print(self.position, self.owner.name)
+
     def update(self):
         self.screen_position = Vector2(SCREEN_WIDTH_CENTER + self.position.x * PIXELS_PER_UNIT, SCREEN_HEIGHT_CENTER - self.position.y * PIXELS_PER_UNIT)
 
     def to_dict(self):
         return {
-            "world_position": [int(self.position.x), int(self.position.y)],
+            "position": [int(self.position.x), int(self.position.y)],
             "scale": [int(self.scale.x), int(self.scale.y)],
             "rotation": int(self.rotation)
         }

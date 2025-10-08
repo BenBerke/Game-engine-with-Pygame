@@ -1,0 +1,125 @@
+{
+    "0": {
+        "name": "camera",
+        "components": {
+            "Transform": {
+                "position": [
+                    0,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1
+                ],
+                "rotation": 0
+            },
+            "Camera": {
+                "viewport_dimensions": [
+                    50.0,
+                    50.0
+                ],
+                "zoom": 1
+            }
+        }
+    },
+    "1": {
+        "name": "my_obj",
+        "components": {
+            "Transform": {
+                "position": [
+                    0,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1
+                ],
+                "rotation": 0
+            },
+            "SpriteRenderer": {
+                "appear_in_debugger": true,
+                "color": [
+                    0,
+                    0,
+                    0
+                ],
+                "render_order": 0,
+                "is_world_pos": true,
+                "scale": [
+                    1.0,
+                    1.0
+                ],
+                "sprite": null
+            },
+            "TestBehaviour": {
+                "appear_in_debugger": true,
+                "move_speed": 3,
+                "jump_power": 2
+            },
+            "BoxCollider": {
+                "appear_in_debugger": true,
+                "width": 1.0,
+                "height": 1.0,
+                "offset": [
+                    0.0,
+                    0.0
+                ]
+            },
+            "Rigidbody": {
+                "appear_in_debugger": true,
+                "gravity_scale": 8,
+                "max_velocity_x": 60,
+                "max_velocity_y": 60,
+                "friction": [
+                    0.09,
+                    0.0
+                ],
+                "is_kinematic": false,
+                "velocity": [
+                    0.0,
+                    0.0
+                ]
+            }
+        }
+    },
+    "2": {
+        "name": "floor",
+        "components": {
+            "Transform": {
+                "position": [
+                    0,
+                    -5
+                ],
+                "scale": [
+                    10,
+                    0.5
+                ],
+                "rotation": 0
+            },
+            "SpriteRenderer": {
+                "appear_in_debugger": true,
+                "color": [
+                    0,
+                    0,
+                    0
+                ],
+                "render_order": 0,
+                "is_world_pos": true,
+                "scale": [
+                    1.0,
+                    1.0
+                ],
+                "sprite": null
+            },
+            "BoxCollider": {
+                "appear_in_debugger": true,
+                "width": 10.0,
+                "height": 0.1,
+                "offset": [
+                    0.0,
+                    0.0
+                ]
+            }
+        }
+    }
+}

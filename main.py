@@ -5,7 +5,7 @@ from Assets.Test_Behaviours.test_behaviour import TestBehaviour
 
 from Classes import Scene, Object, DebugConsole
 from Systems import PhysicsSystem, RenderingSystem, InputSystem, system_time_manager
-from Components import SpriteRenderer, Debugger, Camera, BoxCollider, Rigidbody
+from Components import SpriteRenderer, Debugger, Camera, BoxCollider, Rigidbody, Transform
 from Editor.editor_system import EditorSystem
 from Engine.engine_script_loader import load_custom_behaviours
 from Systems.system_scene_loader import load_scene
@@ -23,10 +23,15 @@ CUSTOM_BEHAVIOURS = load_custom_behaviours("Assets")
 #
 # my_obj = Object.create(
 #     name="my_obj",
-#     components=[SpriteRenderer(), TestBehaviour(), BoxCollider(draw_gizmo=True)]
+#     components=[SpriteRenderer(), TestBehaviour(), BoxCollider(), Rigidbody()],
+# )
+#
+# floor = Object.create(
+#     name="floor",
+#     components=[SpriteRenderer(), BoxCollider(), Transform(position=Vector2(0, -150), scale=Vector2(10, .1))],
 # )
 
-load_scene("Test_Scenes/save_test")
+load_scene("Test_Scenes/physics_test")
 
 debug_console = DebugConsole(max_lines=15)
 

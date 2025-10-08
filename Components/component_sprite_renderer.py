@@ -52,10 +52,10 @@ class SpriteRenderer(Component):
 
         # Prepare image
         if self.sprite and hasattr(self.sprite, "image"):
-            image = py.transform.scale(self.sprite.image, (int(scale.x + self.scale.x * PIXELS_PER_UNIT), int(scale.y + self.scale.y * PIXELS_PER_UNIT)))
+            image = py.transform.scale(self.sprite.image, (int(scale.x + self.scale.x), int(scale.y + self.scale.y)))
         else:
             # Fallback: colored rectangle
-            image = py.Surface((int(scale.x + self.scale.x * PIXELS_PER_UNIT), int(scale.y + self.scale.y * PIXELS_PER_UNIT)), py.SRCALPHA)
+            image = py.Surface((int(scale.x), int(scale.y + self.scale.y)), py.SRCALPHA)
             image.fill(self.color)
 
         # Center the image at pos

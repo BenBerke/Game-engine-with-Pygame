@@ -24,7 +24,6 @@ class EditorSystem:
         for obj in Scene.objects:
             if obj.get_component(SpriteRenderer):
                 transform = obj.get_component(Transform)
-                print(transform.screen_position, transform.scale)
 
     @classmethod
     def switch_to_editor_mode(cls):
