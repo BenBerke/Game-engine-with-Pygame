@@ -1,33 +1,29 @@
 import pygame as py
 from pygame import Vector2
 
-from config import INIT_DISPLAY as SCREEN, PIXELS_PER_UNIT
+from config import SCREEN, PIXELS_PER_UNIT
 from Systems import RenderingSystem
 from Components import Transform
 from Classes import Component, Sprite
 
 class SpriteRenderer(Component):
-    def __init__(self, sprite=None, color=(0,0,0), render_order=0, is_world_pos=True, scale=Vector2(1,1)):
+    def __init__(self, sprite=None, color=(0,0,0), render_order=0, is_world_pos=True):
         super().__init__()
         self.owner = None
         self.color = color
         self.render_order = render_order
         self.is_world_pos = is_world_pos
-        self.scale = scale
 
         if isinstance(sprite, Sprite):
             self.sprite = sprite
-            sprite_data = sprite.to_dict()
         elif isinstance(sprite, dict):
             self.sprite = Sprite(
                 sprite_path=sprite.get("sprite_path"),
                 width=sprite.get("width", 5),
                 height=sprite.get("height", 5)
             )
-            sprite_data = sprite
         else:
             self.sprite = None
-            sprite_data = None
 
         RenderingSystem.register_sprite(self)
 
@@ -46,19 +42,40 @@ class SpriteRenderer(Component):
         return data
 
     def render(self, screen=SCREEN, position=None, scale=None):
-        # Use provided position & scale from RenderingSystem
-        pos = position if position else self.owner.get_component(Transform).screen_position
-        scale = scale if scale else self.owner.get_component(Transform).scale
+        from Classes import Scene
+        from config import SCREEN  # get actual surface
+        if screen is None:
+            screen = SCREEN
+
+        transform = self.owner.get_component(Transform)
+
+        # Get position in pixels
+        if self.is_world_pos and Scene.main_camera:
+            pos = Scene.main_camera.world_to_screen(transform.position)
+            zoom = Scene.main_camera.zoom
+        else:
+            pos = transform.position
+            zoom = 1
+
+        # Determine size in pixels
+        if self.sprite and hasattr(self.sprite, "width") and hasattr(self.sprite, "height"):
+            # Base sprite size in pixels
+            base_width = self.sprite.width
+            base_height = self.sprite.height
+            px_width = int(base_width * transform.scale.x * zoom)
+            px_height = int(base_height * transform.scale.y * zoom)
+        else:
+            # Fallback square in world units converted to pixels
+            px_width = int(transform.scale.x * PIXELS_PER_UNIT * zoom)
+            px_height = int(transform.scale.y * PIXELS_PER_UNIT * zoom)
 
         # Prepare image
         if self.sprite and hasattr(self.sprite, "image"):
-            image = py.transform.scale(self.sprite.image, (int(scale.x + self.scale.x), int(scale.y + self.scale.y)))
+            image = py.transform.scale(self.sprite.image, (px_width, px_height))
         else:
-            # Fallback: colored rectangle
-            image = py.Surface((int(scale.x), int(scale.y + self.scale.y)), py.SRCALPHA)
+            image = py.Surface((px_width, px_height), py.SRCALPHA)
             image.fill(self.color)
 
-        # Center the image at pos
         rect = image.get_rect(center=(int(pos.x), int(pos.y)))
         screen.blit(image, rect)
 

@@ -65,8 +65,6 @@ def load_scene(filename, base_path="Assets"):
                     setattr(comp_instance, k, v)
 
             components.append(comp_instance)
-            if(type(comp_instance) is Transform):
-                print(comp_instance.position)
 
         # Ensure every object has a Transform
         if not any(isinstance(c, Transform) for c in components):

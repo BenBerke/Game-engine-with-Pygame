@@ -15,9 +15,6 @@ class Transform(Component):
             SCREEN_HEIGHT_CENTER - self.position.y * PIXELS_PER_UNIT
         )
 
-    def start(self):
-        print(self.position, self.owner.name)
-
     def update(self):
         self.screen_position = Vector2(SCREEN_WIDTH_CENTER + self.position.x * PIXELS_PER_UNIT, SCREEN_HEIGHT_CENTER - self.position.y * PIXELS_PER_UNIT)
 

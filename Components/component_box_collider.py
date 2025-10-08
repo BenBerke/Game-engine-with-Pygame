@@ -10,21 +10,12 @@ from Classes.class_component import Component
 
 
 class BoxCollider(Component):
-    def __init__(self, width=None, height=None, offset=Vector2(0,0)):
+    def __init__(self, width=0, height=0, offset=Vector2(0,0)):
         super().__init__()
         self.width = width
         self.height = height
         self.offset = offset
         PhysicsSystem.register_collider(self)
-
-    def start(self):
-        if self.owner is None:
-            return
-        transform = self.owner.get_component(Transform)
-        if not self.width:
-            self.width = transform.scale.x
-        if not self.height:
-            self.height = transform.scale.y
 
     def on_remove(self):
         PhysicsSystem.unregister_collider(self)
@@ -32,8 +23,8 @@ class BoxCollider(Component):
     def rect(self):
         transform = self.owner.get_component(Transform)
         pos = transform.position + self.offset
-        w = self.width
-        h = self.height
+        w = self.width + transform.scale.x
+        h = self.height + transform.scale.y
         x = pos.x - w / 2
         y = pos.y - h / 2
         return(x, y, w, h)
