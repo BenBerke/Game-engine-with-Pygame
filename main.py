@@ -1,21 +1,19 @@
 import pygame as py
 import config
 
-from pygame import Vector2
-
-from Classes import Scene, Object
-from Components import Debugger, Camera, SpriteRenderer, Transform, Rigidbody, BoxCollider
-from Components.Test_Behaviours.test_behaviour import TestBehaviour
+from Classes import Scene
 from Systems import PhysicsSystem, RenderingSystem, InputSystem, system_time_manager
 from Editor.editor_system import EditorSystem
+from Engine.engine_script_loader import load_custom_behaviours
 from Systems.system_scene_loader import load_scene
 
 py.init()
 SCREEN = config.INIT_DISPLAY()
 clock = py.time.Clock()
 running = True
+CUSTOM_BEHAVIOURS = load_custom_behaviours("Assets")
 
-load_scene("Test_Scenes/save_test.json")
+load_scene("Assets/Test_Scenes/save_test.json", custom_behaviours=CUSTOM_BEHAVIOURS)
 
 while running:
     InputSystem.update()

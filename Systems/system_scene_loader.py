@@ -2,8 +2,9 @@ import json
 from pygame.math import Vector2
 from Classes import Object, Scene
 from inspect import signature
+from Engine.engine_script_loader import load_custom_behaviours
 
-def load_scene(filename):
+def load_scene(filename, custom_behaviours=None):
     from Components import Transform, BoxCollider, SpriteRenderer, Rigidbody, TextRenderer, Debugger, Camera
     from Classes import CustomBehaviour
 
@@ -28,7 +29,7 @@ def load_scene(filename):
         components = []
 
         for comp_name, comp_attrs in obj_data["components"].items():
-            comp_cls = component_map.get(comp_name)
+            comp_cls = component_map.get(comp_name) or (custom_behaviours.get(comp_name) if custom_behaviours else None)
             if not comp_cls:
                 print(f"[Warning] Unknown component: {comp_name}")
                 continue
