@@ -1,0 +1,104 @@
+{
+    "0": {
+        "name": "cam",
+        "components": {
+            "Transform": {
+                "world_position": [
+                    0,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1
+                ],
+                "rotation": 0
+            },
+            "Camera": {
+                "viewport_dimensions": [
+                    50.0,
+                    50.0
+                ],
+                "zoom": 1
+            }
+        }
+    },
+    "2": {
+        "name": "object",
+        "components": {
+            "Transform": {
+                "world_position": [
+                    0,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1
+                ],
+                "rotation": 0
+            },
+            "SpriteRenderer": {
+                "appear_in_debug": true,
+                "color": [
+                    0,
+                    0,
+                    0
+                ],
+                "render_order": 0,
+                "is_world_pos": true,
+                "sprite": null
+            },
+            "TestBehaviour": {
+                "appear_in_debug": true,
+                "move_speed": 0.3,
+                "jump_power": 2
+            },
+            "BoxCollider": {
+                "appear_in_debug": true,
+                "width": 1.0,
+                "draw_gizmo": false,
+                "height": 1.0,
+                "offset": [
+                    0.0,
+                    0.0
+                ]
+            }
+        }
+    },
+    "4": {
+        "name": "object",
+        "components": {
+            "Transform": {
+                "world_position": [
+                    0,
+                    -5
+                ],
+                "scale": [
+                    50,
+                    0
+                ],
+                "rotation": 0
+            },
+            "SpriteRenderer": {
+                "appear_in_debug": true,
+                "color": [
+                    0,
+                    0,
+                    0
+                ],
+                "render_order": 0,
+                "is_world_pos": true,
+                "sprite": null
+            },
+            "BoxCollider": {
+                "appear_in_debug": true,
+                "width": 50.0,
+                "draw_gizmo": false,
+                "height": 0.1,
+                "offset": [
+                    0.0,
+                    0.0
+                ]
+            }
+        }
+    }
+}

@@ -1,5 +1,5 @@
 from pygame import Vector2
-from config import SCREEN
+from config import SCREEN, SCREEN_WIDTH_CENTER, SCREEN_HEIGHT, SCREEN_HEIGHT_CENTER
 from Classes import Component, Object
 from Components import TextRenderer, Transform
 from Classes import Scene
@@ -65,12 +65,12 @@ class Debugger(Component):
         if owner_transform:
             # Convert world position to screen position using the main camera
             if hasattr(Scene, "main_camera") and Scene.main_camera:
-                screen_pos = Scene.main_camera.world_to_screen(owner_transform.world_position)
+                screen_pos = Scene.main_camera.world_to_screen(owner_transform.position)
             else:
-                # fallback: just use world_position relative to screen center
+                # fallback: just use position relative to screen center
                 screen_pos = Vector2(
-                    SCREEN.get_width() // 2 + owner_transform.world_position.x,
-                    SCREEN.get_height() // 2 - owner_transform.world_position.y
+                    SCREEN_WIDTH_CENTER + owner_transform.position.x,
+                    SCREEN_HEIGHT_CENTER - owner_transform.position.y
                 )
 
             # Offset the text to appear above and to the right of the object

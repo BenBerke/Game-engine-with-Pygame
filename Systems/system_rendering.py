@@ -1,6 +1,6 @@
 import pygame as py
-from pygame import Vector2
-from config import INIT_DISPLAY, SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_WIDTH_CENTER, SCREEN_HEIGHT_CENTER, PIXELS_PER_UNIT
+import config
+from config import INIT_DISPLAY, SCREEN_WIDTH_CENTER, SCREEN_HEIGHT_CENTER, PIXELS_PER_UNIT
 from Classes import Scene
 
 
@@ -36,6 +36,8 @@ class RenderingSystem:
     @classmethod
     def update(cls):
         cam = Scene.main_camera
+        if config.EDITOR_MODE:
+            return
         if cam is None:
             py.font.init()
             font = py.font.Font(None, 64)
@@ -48,15 +50,12 @@ class RenderingSystem:
 
         SCREEN.fill((255, 255, 255))
 
-        py.draw.line(SCREEN, (0, 0, 0), (SCREEN_WIDTH_CENTER, 0), (SCREEN_WIDTH_CENTER, SCREEN_HEIGHT))
-        py.draw.line(SCREEN, (0, 0, 0), (0, SCREEN_HEIGHT_CENTER), (SCREEN_WIDTH, SCREEN_HEIGHT_CENTER))
-
         # Render sprites
         from Components import Transform
         for renderer in sorted(cls.sprites, key=lambda r: r.render_order):
             if renderer.is_world_pos:
                 transform = renderer.owner.get_component(Transform)
-                screen_pos = cam.world_to_screen(transform.world_position)
+                screen_pos = cam.world_to_screen(transform.position)
                 screen_scale = transform.scale * cam.zoom * PIXELS_PER_UNIT
                 renderer.render(screen=SCREEN, position=screen_pos, scale=screen_scale)
             else:

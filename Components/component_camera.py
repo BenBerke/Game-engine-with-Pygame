@@ -13,7 +13,7 @@ class Camera(Component):
 
     def world_to_screen(self, world_position):
         cam_transform = self.owner.get_component(Transform)
-        offset = world_position - cam_transform.world_position
+        offset = world_position - cam_transform.position
         offset *= self.zoom
         offset_pixels = Vector2(offset) * PIXELS_PER_UNIT
         offset.y *= -1

@@ -1,9 +1,6 @@
-import pygame as py
 from pygame import Vector2
-
-from Components.component_text_renderer import TextRenderer
 from config import DEFUALT_GRAVITY, DEFAULT_MAX_VELOCITY_X, DEFAULT_MAX_VELOCITY_Y, DEFAULT_FRICTION, VELOCITY_THRESHOLD
-from Classes import Component, Object
+from Classes import Component
 from Systems import PhysicsSystem
 
 import Systems.system_time_manager
@@ -32,7 +29,7 @@ class Rigidbody(Component):
         self.velocity.y += self.gravity_scale * Systems.system_time_manager.dt
         self.velocity.x *= (1 - self.friction.x)
         self.velocity.x = max(min(self.velocity.x, self.max_velocity_x), -self.max_velocity_x)
-        owner_transform.world_position += Vector2(self.velocity.x, -self.velocity.y) * Systems.system_time_manager.dt
+        owner_transform.position += Vector2(self.velocity.x, -self.velocity.y) * Systems.system_time_manager.dt
 
         # Stop X velocity if small enough
         if abs(self.velocity.x) < VELOCITY_THRESHOLD:

@@ -57,18 +57,18 @@ class PhysicsSystem:
             if overlap_x < overlap_y:
                 # Resolve X
                 if dx > 0:
-                    collision_a.owner.get_component(Transform).world_position.x += overlap_x
+                    collision_a.owner.get_component(Transform).position.x += overlap_x
                 else:
-                    collision_a.owner.get_component(Transform).world_position.x -= overlap_x
+                    collision_a.owner.get_component(Transform).position.x -= overlap_x
                 # Stop horizontal velocity if moving into collider
                 if rb_a and ((dx > 0 and rb_a.velocity.x < 0) or (dx < 0 and rb_a.velocity.x > 0)):
                     rb_a.velocity.x = 0
             else:
                 if overlap_y > 0:
                     if dy > 0:
-                        collision_a.owner.get_component(Transform).world_position.y += overlap_y
+                        collision_a.owner.get_component(Transform).position.y += overlap_y
                     else:
-                        collision_a.owner.get_component(Transform).world_position.y -= overlap_y
+                        collision_a.owner.get_component(Transform).position.y -= overlap_y
                     if rb_a:
                         rb_a.velocity.y = 0
 

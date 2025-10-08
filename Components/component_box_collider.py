@@ -29,14 +29,14 @@ class BoxCollider(Component):
     def update(self):
         if self.draw_gizmo:
             transform = self.owner.get_component(Transform)
-            py.draw.rect(SCREEN, (0,0,0), py.Rect(transform.world_position.x - self.width/2, transform.world_position.y - self.height/2, self.width, self.height), 2)
+            py.draw.rect(SCREEN, (0,0,0), py.Rect(transform.position.x - self.width/2, transform.position.y - self.height/2, self.width, self.height), 2)
 
     def on_remove(self):
         PhysicsSystem.unregister_collider(self)
 
     def rect(self):
         transform = self.owner.get_component(Transform)
-        pos = transform.world_position + self.offset
+        pos = transform.position + self.offset
         w = self.width
         h = self.height
         x = pos.x - w / 2

@@ -15,7 +15,7 @@ def load_scene(filename):
         "TextRenderer": TextRenderer,
         "CustomBehaviour": CustomBehaviour,
         "Debugger": Debugger,
-        "Camera": Camera,  # add this
+        "Camera": Camera,
     }
 
     with open(filename, "r") as f:
@@ -50,6 +50,7 @@ def load_scene(filename):
                     setattr(comp_instance, k, v)
 
             components.append(comp_instance)
+            print(components)
 
         if not any(isinstance(c, Transform) for c in components):
             components.append(Transform())
