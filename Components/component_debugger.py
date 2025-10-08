@@ -13,7 +13,8 @@ class Debugger(Component):
         self.owner = None
         self.debug_text_object = None
         self.text_renderer = None
-        self.appear_in_debug = False
+        self.ignore_in_save = False
+        self.appear_in_debugger = False
 
     def start(self):
         # Create a runtime-only TextRenderer object for debug display
@@ -37,12 +38,12 @@ class Debugger(Component):
 
         # Build the debug string
         for comp_name, comp in self.owner.components.items():
-            if not getattr(comp, "appear_in_debug", True):
+            if not getattr(comp, "appear_in_debugger", True):
                 continue
 
             block = f"{comp_name}\n"
             for attr_name, value in vars(comp).items():
-                if attr_name in ("owner", "appear_in_debug"):
+                if attr_name in ("owner", "appear_in_debugger"):
                     continue
                 block += f"    {attr_name}: {value}\n"
 
@@ -76,3 +77,10 @@ class Debugger(Component):
             # Offset the text to appear above and to the right of the object
             offset = Vector2(owner_transform.scale.x * 40, owner_transform.scale.y * -20)
             self.text_renderer.position = screen_pos + offset
+
+    def to_dict(self):
+        return {
+            "size": self.size,
+            "appear_in_debug": self.appear_in_debugger,
+            # Optionally save other relevant fields
+        }

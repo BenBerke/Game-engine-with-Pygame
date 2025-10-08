@@ -2,7 +2,7 @@ from pygame import Vector2
 
 class Component:
     def __init__(self):
-        self.appear_in_debug = True
+        self.appear_in_debugger = True
         self.owner = None
 
     def to_dict(self):

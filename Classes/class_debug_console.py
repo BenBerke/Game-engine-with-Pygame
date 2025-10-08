@@ -2,7 +2,7 @@ import pygame as py
 from Systems import RenderingSystem
 
 class DebugConsole:
-    def __init__(self, max_lines=10, font=None, color=(0,0,0), position=(0,0), size=24):
+    def __init__(self, max_lines=10, font=None, color=(28, 173, 79), position=(0,0), size=24):
         self.max_lines = max_lines
         self.lines = [""] * max_lines  # pre-fill with empty strings
 

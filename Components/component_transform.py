@@ -1,6 +1,7 @@
 from pygame.math import Vector2
 from Classes import Component
-from config import SCREEN_WIDTH_CENTER, SCREEN_HEIGHT_CENTER
+from config import SCREEN_WIDTH_CENTER, SCREEN_HEIGHT_CENTER, PIXELS_PER_UNIT
+
 
 class Transform(Component):
     def __init__(self, position=None, scale=None, rotation=0):
@@ -10,12 +11,12 @@ class Transform(Component):
         self.scale = Vector2(scale) if scale else Vector2(1, 1)
         self.rotation = rotation
         self.screen_position = Vector2(
-            SCREEN_WIDTH_CENTER + self.position.x,
-            SCREEN_HEIGHT_CENTER - self.position.y
+            SCREEN_WIDTH_CENTER + self.position.x * PIXELS_PER_UNIT,
+            SCREEN_HEIGHT_CENTER - self.position.y * PIXELS_PER_UNIT
         )
 
     def update(self):
-        self.screen_position = Vector2(SCREEN_WIDTH_CENTER + self.position.x, SCREEN_HEIGHT_CENTER - self.position.y)
+        self.screen_position = Vector2(SCREEN_WIDTH_CENTER + self.position.x * PIXELS_PER_UNIT, SCREEN_HEIGHT_CENTER - self.position.y * PIXELS_PER_UNIT)
 
     def to_dict(self):
         return {

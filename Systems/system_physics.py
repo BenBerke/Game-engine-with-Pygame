@@ -24,6 +24,8 @@ class PhysicsSystem:
     def update(cls):
         for rb in cls.rigidbodies:
             rb.update()
+        for bc in cls.colliders:
+            bc.update()
         for i in range(len(cls.colliders)):
             a = cls.colliders[i]
             if not a:

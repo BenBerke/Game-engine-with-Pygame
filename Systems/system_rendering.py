@@ -41,6 +41,7 @@ class RenderingSystem:
         if cam is None:
             py.font.init()
             font = py.font.Font(None, 64)
+            SCREEN.fill((0,0,0))
             text_surface = font.render("NO CAMERA DETECTED", True, (255, 255, 255))
             text_rect = text_surface.get_rect(center=(SCREEN_WIDTH_CENTER, SCREEN_HEIGHT_CENTER))
             SCREEN.blit(text_surface, text_rect)

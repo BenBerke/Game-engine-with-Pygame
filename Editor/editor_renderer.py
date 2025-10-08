@@ -1,5 +1,6 @@
 import pygame as py
 from config import SCREEN, SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_WIDTH_CENTER, SCREEN_HEIGHT_CENTER, PIXELS_PER_UNIT
+import config
 from Components import Transform
 
 class EditorRenderer:
@@ -32,9 +33,8 @@ class EditorRenderer:
 
     @classmethod
     def draw_grid(cls, camera):
-        """
-        Draws a grid around the camera for easier placement.
-        """
+        if not config.EDITOR_MODE: return
+
         grid_color = (200, 200, 200)
         spacing = PIXELS_PER_UNIT * camera.zoom
         start_x = -camera.position.x * camera.zoom + SCREEN_WIDTH_CENTER
@@ -43,11 +43,13 @@ class EditorRenderer:
         # Draw vertical lines
         x = start_x % spacing
         while x < SCREEN_WIDTH:
-            py.draw.line(SCREEN, grid_color, (x, 0), (x, SCREEN_HEIGHT))
+            current_color = (0, 0, 0) if x == start_x else grid_color
+            py.draw.line(SCREEN, current_color, (x, 0), (x, SCREEN_HEIGHT))
             x += spacing
 
         # Draw horizontal lines
         y = start_y % spacing
         while y < SCREEN_HEIGHT:
-            py.draw.line(SCREEN, grid_color, (0, y), (SCREEN_WIDTH, y))
+            current_color = (0, 0, 0) if y == start_y else grid_color
+            py.draw.line(SCREEN, current_color, (0, y), (SCREEN_WIDTH, y))
             y += spacing

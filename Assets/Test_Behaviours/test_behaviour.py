@@ -4,25 +4,26 @@ from pygame import Vector2
 from Classes import CustomBehaviour, DebugConsole, Scene
 from Systems import InputSystem
 from Components import *
+from Systems import system_time_manager
 
 class TestBehaviour(CustomBehaviour):
     def __init__(self):
         super().__init__()
-        self.move_speed = .3
+        self.move_speed = 3
         self.jump_power = 2
 
     def update(self):
         transform = self.owner.get_component(Transform)
         if InputSystem.was_key_pressed(py.K_j):
-            transform.translate(Vector2(1, 0))
+            transform.translate(Vector2(1, 0) * system_time_manager.dt)
         if InputSystem.is_key_pressed(py.K_a):
-            transform.translate(Vector2(-self.move_speed, 0))
+            transform.translate(Vector2(-self.move_speed, 0) * system_time_manager.dt)
         if InputSystem.is_key_pressed(py.K_d):
-            transform.translate(Vector2(self.move_speed, 0))
+            transform.translate(Vector2(self.move_speed, 0) * system_time_manager.dt)
         if InputSystem.is_key_pressed(py.K_w):
-            transform.translate(Vector2(0, self.move_speed))
+            transform.translate(Vector2(0, self.move_speed) * system_time_manager.dt)
         if InputSystem.is_key_pressed(py.K_s):
-            transform.translate(Vector2(0, -self.move_speed))
+            transform.translate(Vector2(0, -self.move_speed) * system_time_manager.dt)
 
         # Example: do something on D release
         if InputSystem.was_key_released(py.K_d):
