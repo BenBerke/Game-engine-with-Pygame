@@ -17,6 +17,7 @@ PIXELS_PER_UNIT = 50
 SCREEN = None
 
 EDITOR_MODE = True
+PAUSED = False
 
 def INIT_DISPLAY():
     global SCREEN

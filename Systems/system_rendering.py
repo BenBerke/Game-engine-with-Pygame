@@ -8,8 +8,34 @@ SCREEN = INIT_DISPLAY()
 
 class RenderingSystem:
     sprites = []
-    text = []
+    texts = []
+    editor_gui_elements = []
+    gui_elements = []
     debug_console = None
+
+    @classmethod
+    def register_editor_gui(cls, gui_element):
+        cls.editor_gui_elements.append(gui_element)
+
+    @classmethod
+    def unregister_editor_gui(cls, gui_element):
+        if gui_element in cls.gui_elements:
+
+            cls.editor_gui_elements.remove(gui_element)
+
+    @classmethod
+    def register_gui(cls, gui_element):
+        cls.gui_elements.append(gui_element)
+
+    @classmethod
+    def unregister_gui(cls, gui_element):
+        if gui_element in cls.gui_elements:
+            cls.gui_elements.remove(gui_element)
+
+    @classmethod
+    def render_gui(cls):
+        for gui in cls.gui_elements:
+            gui.render()
 
     @classmethod
     def register_debug_console(cls, console):
@@ -26,12 +52,12 @@ class RenderingSystem:
 
     @classmethod
     def register_text(cls, text):
-        cls.text.append(text)
+        cls.texts.append(text)
 
     @classmethod
     def unregister_text(cls, text):
-        if text in cls.text:
-            cls.text.remove(text)
+        if text in cls.texts:
+            cls.texts.remove(text)
 
     @classmethod
     def update(cls):
@@ -63,7 +89,7 @@ class RenderingSystem:
                 renderer.render(screen=SCREEN)
 
         # Render world text
-        for text in sorted(cls.text, key=lambda r: r.render_order):
+        for text in sorted(cls.texts, key=lambda r: r.render_order):
             if text.is_world_pos:
                 owner_transform = text.owner.get_component(Transform)
                 if owner_transform:
@@ -71,6 +97,11 @@ class RenderingSystem:
                     # Update text position each frame
                     text.position = screen_pos
             text.render(screen=SCREEN)
+
+        #render GUI
+        for gui in sorted(cls.gui_elements, key=lambda r: r.render_order):
+            if gui:
+                gui.render(screen=SCREEN)
 
         # Render debug console (if exists)
         if cls.debug_console:

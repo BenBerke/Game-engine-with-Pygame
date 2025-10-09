@@ -4,8 +4,10 @@ import config
 from Components import Transform
 
 class EditorRenderer:
+
     @classmethod
-    def render_scene(cls, camera, sprites, texts):
+    def render_scene(cls, camera, sprites, texts, guis):
+        print("render")
         SCREEN.fill((230, 230, 230))
         cls.draw_grid(camera)
 
@@ -26,6 +28,10 @@ class EditorRenderer:
                     screen_pos = camera.world_to_screen(owner_transform.world_position)
                     text.position = screen_pos
             text.render(screen=SCREEN)
+
+        for gui in sorted(guis, key=lambda r: r.render_order):
+            if gui:
+                gui.render(screen=SCREEN)
 
         # Add more editor overlays (selection box, handles, etc.)
 

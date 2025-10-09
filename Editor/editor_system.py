@@ -1,6 +1,5 @@
-import pygame as py
-
 from Components import SpriteRenderer, Transform
+from Editor.GUI_Elements.GUI import EditorGUIButton
 from Editor.editor_camera import EditorCamera
 from Editor.editor_renderer import EditorRenderer
 from Systems import RenderingSystem, Scene, InputSystem
@@ -19,27 +18,25 @@ class EditorSystem:
         pass
 
     def on_click(self, obj):
-        print(obj.name)
+        pass
+
 
     def update(self):
         EditorRenderer.render_scene(
             camera=self.camera,
             sprites=RenderingSystem.sprites,
-            texts=RenderingSystem.text
+            texts=RenderingSystem.texts,
+            guis=RenderingSystem.editor_gui_elements
         )
 
         for obj in Scene.objects:
             if obj.get_component(SpriteRenderer):
                 transform = obj.get_component(Transform)
                 screen_pos = transform.screen_position
-                mouse_pos = InputSystem.get_mouse_pos()
                 width = transform.scale.x * PIXELS_PER_UNIT
-                heigth = transform.scale.y * PIXELS_PER_UNIT
-                left_x = screen_pos.x - (width / 2)
-                right_x = screen_pos.x + (width / 2)
-                top_y = screen_pos.y - (heigth / 2)
-                bottom_y = screen_pos.y + (heigth / 2)
-                if mouse_pos[0] > left_x and mouse_pos[0] < right_x and mouse_pos[1] > top_y and mouse_pos[1] < bottom_y:
+                height = transform.scale.y * PIXELS_PER_UNIT
+                left_x, right_x, top_y, bottom_y = self.get_screen_measurements(x=screen_pos.x,y=screen_pos.y, width=width,height=height)
+                if self.is_mouse_inside(left_x, right_x, top_y, bottom_y):
                     self.on_hover(obj)
                     if InputSystem.was_mouse_pressed(1):
                         self.on_click(obj)
@@ -49,14 +46,15 @@ class EditorSystem:
     def switch_to_editor_mode(cls):
         if config.EDITOR_MODE:
             return
-        Scene.reset_scene()
         config.EDITOR_MODE = True
+        Scene.reset_scene()
 
     @classmethod
     def switch_to_game_mode(cls):
         if not config.EDITOR_MODE:
             return
         config.EDITOR_MODE = False
+        Scene.reset_scene()
 
     @classmethod
     def reset_scene(cls):

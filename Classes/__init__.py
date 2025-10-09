@@ -4,3 +4,4 @@ from .class_component import Component
 from .class_sprite import Sprite
 from .class_custom_behaviour import CustomBehaviour
 from .class_debug_console import DebugConsole
+from .class_GUI_element import GUIElement

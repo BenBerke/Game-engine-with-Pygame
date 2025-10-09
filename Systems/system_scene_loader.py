@@ -6,7 +6,7 @@ from Engine.engine_script_loader import load_custom_behaviours
 
 def load_scene(filename, base_path="Assets"):
     from Classes import CustomBehaviour
-    from Components import Transform, BoxCollider, SpriteRenderer, Rigidbody, TextRenderer, Debugger, Camera
+    from Components import Transform, BoxCollider, SpriteRenderer, Rigidbody, TextRenderer, Debugger, Camera, Button
 
     # Load all user-defined custom behaviours automatically
     CUSTOM_BEHAVIOURS = load_custom_behaviours(base_path)
@@ -20,6 +20,7 @@ def load_scene(filename, base_path="Assets"):
         "CustomBehaviour": CustomBehaviour,
         "Debugger": Debugger,
         "Camera": Camera,
+        "Button": Button,
     }
 
     # Ensure file path

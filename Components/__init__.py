@@ -5,6 +5,7 @@ from .component_sprite_renderer import SpriteRenderer
 from .component_text_renderer import TextRenderer
 from .component_debugger import Debugger
 from .component_camera import Camera
+from .component_button import Button
 
 
 ALL_COMPONENTS = {
@@ -15,6 +16,7 @@ ALL_COMPONENTS = {
     "TextRenderer": TextRenderer,
     "Debugger": Debugger,
     "Camera": Camera,
+    "Button": Button,
 
 }
 
