@@ -25,7 +25,6 @@ class EditorSystem:
             camera=self.camera,
             sprites=RenderingSystem.sprites,
             texts=RenderingSystem.texts,
-            guis=RenderingSystem.editor_gui_elements
         )
 
         from Editor import EditorGUIManager

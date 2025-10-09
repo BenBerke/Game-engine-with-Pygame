@@ -5,8 +5,19 @@ from Components import Transform
 
 class EditorRenderer:
 
+    gui_elements = []
+
     @classmethod
-    def render_scene(cls, camera, sprites, texts, guis):
+    def register_gui(cls, gui_element):
+        cls.gui_elements.append(gui_element)
+
+    @classmethod
+    def unregister_gui(cls, gui_element):
+        if gui_element in cls.gui_elements:
+            cls.gui_elements.remove(gui_element)
+
+    @classmethod
+    def render_scene(cls, camera, sprites, texts):
         SCREEN.fill((230, 230, 230))
         cls.draw_grid(camera)
 
@@ -28,7 +39,7 @@ class EditorRenderer:
                     text.position = screen_pos
             text.render(screen=SCREEN)
 
-        for gui in sorted(guis, key=lambda r: r.render_order):
+        for gui in sorted(cls.gui_elements, key=lambda r: r.render_order):
             if gui:
                 gui.render(screen=SCREEN)
 

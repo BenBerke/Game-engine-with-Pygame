@@ -1,5 +1,6 @@
 from config import SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_WIDTH_CENTER, SCREEN_HEIGHT_CENTER
 from Systems import RenderingSystem
+from Editor import EditorRenderer
 
 class GUIElement():
     anchor_points = {"top_left": (0, 0), "top_center": (SCREEN_WIDTH_CENTER, 0), "top_right": (SCREEN_WIDTH, 0),
@@ -15,7 +16,7 @@ class GUIElement():
         self.render_order = render_order
         self.anchor_point = self.anchor_points[anchor_point]
         if is_editor:
-            RenderingSystem.register_editor_gui(self)
+            EditorRenderer.register_gui(self)
         else:
             RenderingSystem.register_gui(self)
 

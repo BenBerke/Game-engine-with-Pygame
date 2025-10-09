@@ -9,19 +9,8 @@ SCREEN = INIT_DISPLAY()
 class RenderingSystem:
     sprites = []
     texts = []
-    editor_gui_elements = []
     gui_elements = []
     debug_console = None
-
-    @classmethod
-    def register_editor_gui(cls, gui_element):
-        cls.editor_gui_elements.append(gui_element)
-
-    @classmethod
-    def unregister_editor_gui(cls, gui_element):
-        if gui_element in cls.gui_elements:
-
-            cls.editor_gui_elements.remove(gui_element)
 
     @classmethod
     def register_gui(cls, gui_element):
