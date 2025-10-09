@@ -13,7 +13,7 @@ from Editor.editor_gui_manager import EditorGUIManager
 from Editor.GUI_Elements.GUI.class_editor_gui_button import EditorGUIButton
 
 py.init()
-SCREEN = config.INIT_DISPLAY()
+config.INIT_DISPLAY()
 clock = py.time.Clock()
 running = True
 CUSTOM_BEHAVIOURS = load_custom_behaviours("Assets")
@@ -38,13 +38,6 @@ load_scene("Test_Scenes/gui_test")
 
 debug_console = DebugConsole(max_lines=15)
 
-button = EditorGUIButton(
-    x=100,
-    y=100,
-    width=60,
-    height=20,
-    anchor_point="bottom_right",
-)
 
 while running:
     events = py.event.get()
@@ -78,7 +71,5 @@ while running:
         RenderingSystem.update()
         PhysicsSystem.update()
         Scene.update()
-
-
 
 py.quit()

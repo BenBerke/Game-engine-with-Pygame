@@ -18,7 +18,7 @@ class EditorRenderer:
 
     @classmethod
     def render_scene(cls, camera, sprites, texts):
-        SCREEN.fill((230, 230, 230))
+        config.GUI_SURFACE.fill((0, 0, 34, 150))
         cls.draw_grid(camera)
 
         for renderer in sorted(sprites, key=lambda r: r.render_order):

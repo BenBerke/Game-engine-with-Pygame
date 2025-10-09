@@ -14,13 +14,20 @@ VELOCITY_THRESHOLD = 0.1
 
 PIXELS_PER_UNIT = 50
 
-SCREEN = None
-
 EDITOR_MODE = True
 PAUSED = False
 
+SCENE_SURFACE = None # Offscreen surface for game/world rendering
+GUI_SURFACE = None   # Offscreen surface for GUI/editor overlays
+
 def INIT_DISPLAY():
-    global SCREEN
+    global SCREEN, SCENE_SURFACE, GUI_SURFACE
     if SCREEN is None:
+        # Create main window
         SCREEN = py.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+
+        # Create offscreen surfaces
+        SCENE_SURFACE = py.Surface((SCREEN_WIDTH, SCREEN_HEIGHT))
+        GUI_SURFACE = py.Surface((SCREEN_WIDTH, SCREEN_HEIGHT), py.SRCALPHA)  # transparent for GUI
+
     return SCREEN
