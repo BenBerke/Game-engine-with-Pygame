@@ -7,7 +7,6 @@ class EditorRenderer:
 
     @classmethod
     def render_scene(cls, camera, sprites, texts, guis):
-        print("render")
         SCREEN.fill((230, 230, 230))
         cls.draw_grid(camera)
 

@@ -1,7 +1,4 @@
 from Components import SpriteRenderer, Transform
-from Editor.GUI_Elements.GUI import EditorGUIButton
-from Editor.editor_camera import EditorCamera
-from Editor.editor_renderer import EditorRenderer
 from Systems import RenderingSystem, Scene, InputSystem
 import config
 from config import PIXELS_PER_UNIT
@@ -11,6 +8,7 @@ class EditorSystem:
     active_scene = None
 
     def __init__(self):
+        from Editor import EditorCamera
         self.camera = EditorCamera()
 
     """Function gets called if the mouse hovers over an object with sprite renderer in editor mode"""
@@ -22,6 +20,7 @@ class EditorSystem:
 
 
     def update(self):
+        from Editor import EditorRenderer
         EditorRenderer.render_scene(
             camera=self.camera,
             sprites=RenderingSystem.sprites,
@@ -29,15 +28,15 @@ class EditorSystem:
             guis=RenderingSystem.editor_gui_elements
         )
 
+        from Editor import EditorGUIManager
         for obj in Scene.objects:
             if obj.get_component(SpriteRenderer):
                 transform = obj.get_component(Transform)
                 screen_pos = transform.screen_position
                 width = transform.scale.x * PIXELS_PER_UNIT
                 height = transform.scale.y * PIXELS_PER_UNIT
-                left_x, right_x, top_y, bottom_y = self.get_screen_measurements(x=screen_pos.x,y=screen_pos.y, width=width,height=height)
-                if self.is_mouse_inside(left_x, right_x, top_y, bottom_y):
-                    self.on_hover(obj)
+                left_x, right_x, top_y, bottom_y = EditorGUIManager.get_screen_measurements(x=screen_pos.x,y=screen_pos.y, width=width,height=height)
+                if EditorGUIManager.is_mouse_inside(left_x=left_x, right_x=right_x, top_y=top_y, bottom_y=bottom_y):
                     if InputSystem.was_mouse_pressed(1):
                         self.on_click(obj)
                         break
